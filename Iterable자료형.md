@@ -1,4 +1,4 @@
-# iterable 자료형
+# Iterable 자료형
 
 - iterable 객체 - 반복 가능한 객체
 
@@ -18,22 +18,23 @@
 
 - iterable객체를 만드는 iter()함수와 다음 출력요소를 꺼내주는 next()함수
 
-  ~~~ 
-  it = iter(dict)
-  print(next(it))
-  print(next(it))
-  print(next(it))
-  print(next(it))   #네번째에서 더이상 반복할게 없어 StopIteration오류가 발생하면 next()는 멈춘다.
-  ~~~
-
   ~~~ python
   it = iter(dict)   #안해주고 next()반환할경우 오류 발생, TypeError: 'dict' object is not an iterator
+  print(next(it))
+  print(next(it))
+  print(next(it))
+  print(next(it))   #네번째에서 더이상 반복할게 없어 StopIteration예외가 발생하면 next()는 멈춘다.
+  ~~~
+
+  StopIteration예외가 발생하는것을 아래와 같이 예외처리 구문을 써볼 수 있다.
+
+  ~~~ python
+  it = iter(dict)   
   while True:
       try:
-          e = next(it)
-          print(e)
+          print(next(it))
       except StopIteration:
-          break
+          break     #예외 발생시 무한루프를 종료한다.
   ~~~
 
 - iter()함수와 next()함수를 사용해서 for문을 사용하지 않고도 컬렉션 순회를 할 수 있다. 
