@@ -39,11 +39,11 @@
 ~~~ sql
 -- 구축할 때 명령어
 > mysql -u root -p  -- mysql 실행파일 경로를 path에 환경변수로 먼저 등록한다.
-> source 파일명
+> SOURCE 파일명
 -- 기본 명령어
-> use 데이터베이스명; -- 사용할 데이터베이스명
+> USE 데이터베이스명; -- 사용할 데이터베이스명
 > DESC 테이블명; -- 테이블의 구조 출력
-> create database sqldb; -- 데이터베이스 생성
+> CREATE database sqldb; -- 데이터베이스 생성
 
 ~~~
 
@@ -56,10 +56,10 @@
 ~~~ sql
 SELECT 필드 목록
 FROM 테이블명
-[where 조건]
-[group by 컬럼명]
-[having 조건]
-[orderby 컬럼명]
+WHERE 조건
+GROUP BY 컬럼명
+HAVING 조건
+ORDER BY 컬럼명
 ~~~
 
 - where절 
@@ -67,26 +67,41 @@ FROM 테이블명
   - And, or, not
 
   ~~~ sql
-  select userid, name
-  from usertbl
-  where birthyear >= 1970 and height >= 180;
+  SELECT userid, name
+  FROM usertbl
+  WHERE birthyear >= 1970 AND height >= 180;
   
-  select userid, name
-  from usertbl
-  where birthyear >= 1970 or height >= 180;
+  SELECT userid, name
+  FROM usertbl
+  WHERE birthyear >= 1970 OR height >= 180;
   ~~~
 
-  - between, in(), like
-    - like는 자주쓰인다
+  - BETWEEN ~ AND
 
-  ~~~ sql
-  select name, height
-  from usertbl
-  where name like '김%';
-  -- %는 글자수에 상관없이 해당 글자가 들어간 것을 찾는다.
-  ~~~
+    ~~~ sql
+    -- 키가 180에서 183사이인 사람 찾기
+    SELECT Name, height FROM usertbl WHERE height BETWEEN 180 AND 183;
+    -- 숫자로 구성되어 있고 연속적인 값을 가지고 있어서 between ~and를 쓸 수 있다. 	
+    ~~~
 
-  
+  - IN()
+
+    ~~~ sql
+    -- 연속적인 값이 아닌 특정값 찾을 때 사용
+    SELECT Name, addr FROM usertbl WHERE addr IN('경남, 전북, 충남')
+    ~~~
+
+  - LIKE
+
+    ~~~ sql 
+    -- 문자열의 내용을 검색
+    SELECT Name, height
+    FROM usertbl
+    WHERE Name LIKE '김%';
+    -- %는 글자수에 상관없이 해당 글자가 들어간 것을 찾는다
+    ~~~
+
+    
 
 - SubQuery(하위커리), 중요..!!
 
@@ -94,68 +109,71 @@ FROM 테이블명
   - 반드시 ()안에 작성
 
   ~~~ sql
-  select name, height from usertbl where height > 180;
+  SELECT name, height FROM usertbl WHERE height > 180;
   -- 키가 180보다 큰 사람 출력
-  select name, height from usertbl
-  		where height > (select height from usertbl where name = '김경호')
+  SELECT name, height FROM usertbl
+  		WHERE height > (SELECT height FROM usertbl WHERE name = '김경호')
   -- 키가 김경호보다 큰 사람 출력
   ~~~
 
-- ASC, DESC - 정렬
+- ORDER BY
+
+  - 결과의 순서를 조정
 
   ~~~ sql
-  select name, mdate from usertbl order by mdate;
-  -- mdate의 오름차순으로 정렬
-  select name, mdate from usertbl order by mdate desc;
-  -- mdate의 내림차순으로 정렬
+  SELECT name, mdate FROM usertbl ORDER BY mdate;   
+  -- mdate의 오름차순으로 정렬, ASC가 default값이라 생략
+  SELECT name, mdate FROM usertbl ORDER BY mdate DESC;
+  -- mdate의 내림차순으로 정렬, DESC
   ~~~
 
   
 
-- 중복을 없애는..! 파이썬에서의 집합과 같은 기능, DISTINCT
+- 중복된 것은 하나만 남기는, 파이썬에서의 집합과 같은 기능, DISTINCT
 
   ~~~ SQL
-  SELECT DISTINCT addr from usertbl;
+  SELECT DISTINCT addr FROM usertbl;
   ~~~
 
   
 
 - 가장 어려웠던.. 출력하는 개수를 제한하는 LIMIT
 
-  select문에서는 자료개수에 상관없이 모든 자료가 요청된다. 자료가 많은 경우 원하는 범위를 보기가 어렵다. 
+  - select문에서는 자료개수에 상관없이 모든 자료가 요청된다. 자료가 많은 경우 원하는 범위를 보기가 어렵다. 
 
-  LIMIT(시작위치, 반환할 개수)
+  - LIMIT(시작위치, 반환할 개수)
 
-  ~~~ 
+  ~~~ SQL
   USE employees(파일명);
   
-  select hire_date from employees 
-  	order by hire_date ASC
-  	LIMIT 0, 5 --Limit 5 offset0(0부터)
+  SELECT hire_date FROM employees 
+  ORDER BY hire_date ASC
+  LIMIT 0, 5 --Limit 5 offset0(0부터)
   ~~~
 
+  ​	실습을 하면서 직관적으로 보기좋도록 예약어별로 줄바꿈을 했다.
   
 
 - GROUP BY
 
-  LIMIT와 마찬가지로 특정 범위만을 살펴보기 위해 쓰면 된다. 
-
-  특정 컬럼에 대해 동일한 값을 가지는 행들을 하나의 행으로 처리, 통계작업
+  그룹으로 묶어준다
 
   ~~~ sql
-  select userid, sum(amount)
-  from buytbl
-  group by userid;
-  -- userid별로 sum값만을 본다, 변수명 뒤에 as를 붙이면 원하는 이름으로 열name을 지정한다.
+  SELECT userid, SUM(amount)
+  FROM buytbl
+  GROUP BY userid;
+  -- userid별로 sum값만을 보겠다
   ~~~
 
 
 
 - 집계함수
 
+  - 데이터를 그룹화해주는 기능
+
   ~~~ sql 
-  select count(*) from usertbl -- 전체 행의 개수
+  SELECT COUNT(*) FROM usertbl -- 전체 행의 개수
   ~~~
 
-  
+  - GROUP BY와 함께 자주 사용되는 집계함수
 
