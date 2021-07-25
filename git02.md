@@ -107,3 +107,4 @@
 - 프로젝트 진행시 remote repo에서 readme와 ignore파일을 먼저 만들고 시작하는 것이 좋다. git init명령도 전에. 
 - HEAD는 현재 존재하는 위치, 최근 것을 따라간다. 
 - git branch graph 명령으로 현재 구조를 확인할 수 있다. 
+
