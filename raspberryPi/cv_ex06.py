@@ -12,7 +12,7 @@ height, width = src.shape   #영상크기얻는방법
 h = height // N   #int
 w = width // N    #int
 
-for i in range(N)
+for i in range(N):
     for j in range(N):
         y = i * h
         x = j * w
