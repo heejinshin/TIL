@@ -37,4 +37,10 @@ with Video(device=0) as v:
         #보여주기
         if not Video.show(image): break
 
+with Video(deivce=0) as v:
+    for image in v:
+        image = detect_face(image)
+        #보여주기
+        if not Video.show(image): break #q로 종료; if 27,esc로 종료
+
 #cascade_종속되다
