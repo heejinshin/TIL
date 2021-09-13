@@ -1,0 +1,72 @@
+<!-- 노드의 추가/치환 -->
+<!-- DOM에 구조적인 변화를 주고있는 추가/수정/삭제 함수 살펴보기 -->
+<!-- 추가_appendChild() -->
+<!-- 치환_ele.replaceChild(after, before) _치환 후의 노드, 치환 대상노드를 인자로-->
+<!-- 삭제_ele.removeChild(node) -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="list">
+        <li><a href="JavaScript:void(0)" data-isbn="978-4-7981-3547-2">
+        개정3판 기초PHP</a></li>
+        <li><a href="JavaScript:void(0)" data-isbn="978-4-7741-8030-4">
+        Java포켓 레퍼런스</a></li>
+        <li><a href="JavaScript:void(0)" data-isbn="978-4-7741-7984-1">
+        Swift포켓 레퍼런스</a></li>
+        <li><a href="JavaScript:void(0)" data-isbn="978-4-7981-4402-3">
+        개정5판 ASP.NET입문</a></li>
+        <li><a href="JavaScript:void(0)" data-isbn="978-4-8222-9644-5">
+        앱을 맊들자! Android입문</a></li> 
+    </ul>
+
+    <input id="del" type="button" value="삭제" disabled />
+
+    <div id="pic"></div>
+<script>
+    
+    document.addEventListener('DOMContentLoaded', function(){//dom분석이 끝나면 진행하는 핸들러
+        //자주 사용하는 주요 노드에대한 참조 얻음
+        var list = document.getElementById('list') //list
+        var del = document.getElementById('del') //btn
+        var pic = document.getElementById('pic') //img, 복사바꿔넣기조심
+        //리스트에 대해 이벤트 하나 걸어줌
+        list.addEventListener('click',function(e){ //e는 이벤트 객체, 클릭했을때 상황에 대한 정보를 갖고있다, 항상 갖고있음, 첫 로드 이후로는 계속 있는것
+            var isbn = e.target.getAttribute('data-isbn') //e.tartget: 이벤트를 발생한 실제 객체(a태그)_id list의 하위도 다 포함된다
+            //click을 하면 클릭한 a태그 요소가 e.target으로 해당되어 들어감
+            //클릭한 태그의 isbn이 추출되게끔 getAttribute!
+            console.log(e.target)
+            console.log(isbn)
+            if (isbn) {
+                //if문해석: isbn이 있으면 create태그로 img를 하나 만들어냄  
+                var img = document.createElement('img')
+                //setattribute함수를 써도 되나 간결하게 아래와같이 속성들을 표현한것
+                img.src = `http://www.wings.msn.to/books/${isbn}/${isbn}.jpg`
+                //-> 그 이름을 isbn.jpg로 설정
+                img.alt = e.innerHTML //alt는 innerHTML을 그대로 보여준다
+                img.height = 150
+                img.width = 108
+                if(pic.getElementsByTagName('img').length > 0){ 
+                    //-> document. 대신 pic.: pic element의 자식중에서 찾게끔
+                    pic.replaceChild(img, pic.lastChild)
+                }else { //첫실행에선 pic의 하위가 없으니 length 가 >0이 아니다
+                    del.disabled = false //버튼을 활성화 시킴(누를 수 있게 함)
+                    pic.appendChild(img)
+                    //id pic하위에 자식으로 img태그가 들어가게끔, 첫 실행에선 이미지가 아직 없으니까
+                }//두번쨰 실행부터는 이미지 있으니까 새로운 이미지로 바뀌게끔 대치시키는 replaceChild(~)
+            }
+        },false ) 
+            //버튼에 대한 이벤트 생성
+        del.addEventListener('click', function(){
+            pic.removeChild(pic.lastChild)
+            del.disabled = true; //삭제할것 더이상 없는 상태->버튼 비활성화 
+        },false)
+    }, false)
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!-- 이벤트 핸들러 공부하기 -->
+<!-- 기본 로직상 스크립트를 body앞에 두면 dom처리가 불가능하다.  -->
+<!-- 그걸 해결하기 위해 해당 이벤트 핸들러를 사용한다_domcontentloaded -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="result_text">
+        <p style="color:Red">설정되어있지 않다</p>
+    </div>
+    <div id="result_html">
+        <p style="color:red">설정되어있지 않다</p>
+    </div>
+    <script> //body위로 올라갈시 dom이 만들어지기전에 실행하기 때문에 not defined, doncontentloaded 썼기 때문에 여기선 괜찮
+        //속성값 취득/설정_ 텍스트값 취득/설정
+        // textContent_ html태그를 해석하지 않음
+        //innerHTML_ HTML태그를 해석, 적용
+        //아래_이벤트핸들러 등록->스크립트를 body보다 위에 배치할ㄱ때 사용하는 기법 
+        document.addEventListener('DOMContentLoaded', function(){ //인자1 _이벤트명(~loaded는 'dom분석이 끝난 시점에 발생하는 이벤트다')
+            document.getElementById('result_text').textContent = //textcontent_프로퍼티 설정
+                '<a href="http://www.wings.msn.to/">WINGS프로젝트</a>'
+            document.getElementById('result_html').innerHTML =
+                '<a href="http://www.wings.msn.to/">WINGS프로젝트</a>'
+        },false) //addEventListner의 인자1이 dom~, 인자 2가 콜백 function(), 인자3ㅇ; false(이벤트 캡처를 할지말지 여부)이다.
+    </script>
+</body>
+</html>

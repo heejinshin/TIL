@@ -1,0 +1,45 @@
+<!-- HTMLCollection, 라이브객체 -> 요소 동적 변경 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="list">
+        <li>개정3판 기초PHP</li> 
+        <li>Java포켓 레퍼런스</li> 
+        <li>Swift포켓 레퍼런스</li> 
+        <li>개정5판 ASP.NET입문</li> 
+        <li>앱을 만들자! Android입문</li>
+    </ul>
+    <div id="elem">마우스를 올리면 색이 변합니다</div>
+<script>
+    //인라인 스타일 접근
+    //ele: 요소 객체
+    //prop: 스타일 프로퍼티 > -를 포함하는 프로퍼티 ->camelCase표기
+    //value: 설정값
+    document.addEventListener('DOMContentLoaded', function(){
+        var li = document.getElementsByTagName('li')
+        console.log('변경전:'+li.length)
+
+        var ul = document.getElementById('list')
+        ul.appendChild(document.createElement('li'))
+        console.log('변경후:'+li.length)
+    }, false)
+    document.addEventListener('DOMContentLoaded', function() { 
+        var elem = document.getElementById('elem');
+        elem.addEventListener('mouseover', function() {
+            this.style.backgroundColor = 'Yellow'; 
+            //elem에 color적용
+        }, false);
+        
+        elem.addEventListener('mouseout', function() {
+        this.style.backgroundColor = '';
+    }, false); 
+}, false);
+</script>
+</body>
+</html>
