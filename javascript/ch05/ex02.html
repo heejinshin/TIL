@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li><a href="https://google.com">google</a></li>
+        <li><a href="https://naver.com">naver</a></li>
+        <li><a href="https://daum.net">daum</a></li>
+    </ul>
+
+    <script>
+        let list = document.getElementsByTagName('a')  //한개가 선택되는게 아니라
+        //collection이 리턴됨 (htmlcollection)_주요 멤버: length(리스트에 포한된 요소의 수),
+        //item(list[i]와 같은의미)_요소취득
+        console.log(list)
+        for(let i=0, len=list.length; i<len; i++){  //초기화 변수 두개 ',' 이용
+        //list에 length가 있다는 점 알아두기
+            console.log(list.item(i).href)
+            //console.log(list[i].href) a태그의 링크들을 순서대로 돌려본것
+        }
+    </script>
+</body>
+</html>

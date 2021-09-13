@@ -1,0 +1,1 @@
+primitive type data(숫자/bool)을 넘겼을때 call by value -> 복사본 넘겨 원본에 영향x

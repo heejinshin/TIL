@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img src="http://www.wings.msn.to/image/wings.jpg" alt="WINGS(Www INtergrated Guide on Server-architecture)" id="logo" 
+    height="67" width="215" border="0" >
+<script>
+    var logo = document.getElementById('logo')
+    var attrs = logo.attributes
+    for(var i = 0, len = attrs.length; i < len; i++){
+        var attr = attrs.item(i)
+        console.log(attr.name + ':' + attr.value)
+    }
+    //elem.attributes : NamedNodeMap 객체 _배열처럼 인덱스 접근 가능
+    //NamedNodeMap.getNamedItem()_주어진 이름에 해당 하는 Attr 을 반환 
+
+</script>
+</body>
+</html>

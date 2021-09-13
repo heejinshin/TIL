@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li><a href="https://google.com" class="link">google</a></li>
+        <li><a href="https://naver.com" class="link">naver</a></li>
+        <li><a href="https://daum.net" class="link">daum</a></li>
+    </ul>
+    <script>
+        //클래스가 선택된 요소들을 얻기
+        var list = document.getElementsByClassName('link')
+        for(var i=0, len = list.length; i<len; i++){
+            console.log(list.item(i).href)
+        }
+    </script>
+</body>
+</html>

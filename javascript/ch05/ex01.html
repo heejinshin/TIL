@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <span id="result"></span>
+
+    <script>
+        let current = new Date()  //date객체의 인스턴스 생성
+        let result = document.getElementById('result')
+        result.textContent = current.toLocaleDateString() + '' + current.toLocaleTimeString()
+        //timestr과 datestr-> 둘다 date(내장객체)객체의 기본 메서드
+        //textcontent는 태그를 넣어도 문자열로 본다(span태그에 들어갈 내용을 구성한것, node객체)
+    </script>
+</body>
+</html>

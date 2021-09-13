@@ -1,0 +1,34 @@
+<!-- 문서 트리사이 오가기, 노트워킹_노드타입 체크기법 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <label for="food">가장 먹고싶은 음식은?:</label>
+        <select name="" id="food">
+        <!-- childNodes -->
+            <option value="라면">라면</option>
+            <option value="만두">만두</option>
+            <option value="불고기">불고기</option>
+        </select>
+        <input type="submit" value="송신">
+    </form>
+<script> 
+    //자식 요소 리스트를 취득한느 다른 방법
+    //fistChild/nextSibling 프로퍼티
+    var s = document.getElementById('food')
+    var child = s.firstChild  
+    while(child){
+        if(child.nodeType === 1){  //노드가 무엇인지 식별하는 정수 -> elements/text/comments 구별
+            console.log(child.value)
+        }
+        child = child.nextSibling
+    }
+</script>
+</body>
+</html>

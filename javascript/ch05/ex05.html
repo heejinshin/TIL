@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="list">
+        <li><a href="https://google.com" class="link">google</a></li>
+        <li><a href="https://naver.com" class="link">naver</a></li>
+        <li><a href="https://daum.net" class="external">daum</a></li>
+    </ul>
+<script>
+    // document.querySelector(selector)_발견된 첫번째 요소 하나만 리턴
+    // document.querySelectorAll(selector)_ NodeList 리턴
+    // selector: css선택자 표현식
+    var list = document.querySelectorAll('#list .external')
+    for(var i=0, len=list.length; i < len; i++){
+        console.log(list.item(i).href)
+    }
+</script>
+</body>
+</html>

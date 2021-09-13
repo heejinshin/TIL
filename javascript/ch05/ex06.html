@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="">
+        <label for="food">가장 먹고싶은 음식은?:</label>
+        <select name="" id="food">
+        <!-- childNodes -->
+            <option value="라면">라면</option>
+            <option value="만두">만두</option>
+            <option value="불고기">불고기</option>
+        </select>
+        <input type="submit" value="송신">
+    </form>
+<script>
+    var s = document.getElementById('food')  //select태그 
+    var opts = s.childNodes  //option태그 //opts는 NodeList로 생성됨(childNodes란 전체 자식을 다 포함하는것->list로 반환)
+    for (var i = 0, len = opts.length; i < len; i++){
+        var opt = opts.item(i)
+        if(opt.nodeType === 1){  //태그 타입 1
+            console.log(opt.value)
+        }
+
+    }
+</script>
+</body>
+</html>
