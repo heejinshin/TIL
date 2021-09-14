@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Document</title>   
+</head>
+<body>
+    <div id="weather">
+    </div>
+    <input id="weather-btn" type="button" value="날씨보기"> 
+    <!-- 버튼을 눌렀을때 날씨 정보가 나오게끔 -->
+    <ul id="cities">  
+        <!-- 부모인 ul에 이벤트handle을 걸도록 -->
+        <!-- date-name: 사용자 정의속성-> data넘길때 한글name으로 넘길순 없으니까 -->
+        <!-- query로 사용할 eng문자열 담아주기 -->
+        <li data-name="Seoul">서울</li>   
+        <li data-name="Busan">부산</li>
+        <li data-name="Incheon">인천</li>
+        <li data-name="Jeju City">제주</li>
+    </ul>
+
+<script>
+    function showWeather(city, w){
+        console.log(w)
+        //<div id="weather"></div>에 
+        //주요 날씨정보를 출력(날씨, 온도, 습도, 풍속...), 날씨 icon까지출력되도록
+        //appendchild하면 너무 복잡해지므로 innerHtml로서 문자열을 만들어준다
+        let weather = document.getElementById('weather')
+        let template = `
+            <p>
+                <img src = "http://openweathermap.org/img/w${w.weather[0].icon}.png"
+                ${w.weather[0].main}
+            </p>
+            <p>기온: ${w.main.temp}°C</p>
+            <p>습도: ${w.main.humidity}%</p>
+            <p>풍속: ${w.wind.speed},풍향: ${w.wind.deg}°</p>
+        `
+        weather.innerHTML = template
+    }
+
+
+    async function getWeather(q='Seoul', city='서울'){  //비동기함수 표현
+        const APPID = '68d98bad52ca08306555b33401aaf5e7'  //Open Weather API Key
+        //let q = 'Seoul'
+        let units = 'metric'
+        let url = 'http://api.openweathermap.org/data/2.5/weather'
+
+        //axios.get(url, { q:q, APPID:APPID, units:units}) 두번째 인자_쿼리 스트링 표현 객체 
+        let params = {q, APPID, units}
+        
+        //axios.get(url, {params}) //get의 리턴값으로 then을 해줌
+        //    .then(function(res){  //get 호출 성공시 호출할 함수 등록
+        //        console.log(res)  //실제 응답 데이터는 res.data(객체임)에 들어있다 
+        //        showWeather(res.data) //날씨정보 넘겨줌
+        //    })
+        //    .catch(function(err){ //then과 반대로 실패했을때 호출할 함수 등록, catch
+        //        console.log(err)
+        //    })  //res는 response , err는 error
+
+        //promise관련 객체 파트 -> 비동기 함수의 리턴값으로 사용 .. 
+        try {
+            let res = await axios.get(url, {params}) //await_async와 매치_비동기함수 키워드임(응답이 올때까지 기다려도록)
+            showWeather(city, res.data) //city추가 
+        }catch(e){
+            console.log(e)
+        }
+    }
+
+    function getCityWeather(e){
+        console.log(e.target) //이벤트 객체 e, 실제 이벤트를 발생시킨객체 e(클릭한 li)
+        let q = e.target.getAttribute('data-name') //사용자정의속성으로 지정한 것의 값을 얻어내기_getAttribute
+        let city = e.target.textContent
+        console.log(q, city)
+        getWeather(q, city)
+    }
+    
+
+    let btn = document.getElementById('weather-btn')
+    //버튼눌렀을때 e객체가 넘어가니까(인자 개수 안맞음)
+    btn.onclick = ()=> getWeather()  //날씨버튼 오동작 방지, ()=>lambda func
+    let cities = document.getElementById('cities')
+    cities.onclick = getCityWeather
+
+</script>    
+</body>
+</html>
