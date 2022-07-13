@@ -1,2 +1,2 @@
 # TIL
-- One TIL in a Day
+- Studying datas in daily
